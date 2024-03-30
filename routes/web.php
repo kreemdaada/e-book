@@ -34,11 +34,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 #----------------------------------------------
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 #------------------------------------------------------
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-Route::post('/books', [BookController::class, 'store'])->name('books.store');
-Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
-Route::put('/books/{id}', [BookController::class, 'update'])->name('books.update');
-Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+Route::group(['middleware' => 'web'], function () {
+    Route::get('/books', [BookController::class, 'index'])->name('books.index');
+});
+
+Route::group(['middleware' => 'author'], function () {
+    Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+    Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::put('/books/{id}', [BookController::class, 'update'])->name('books.update');
+    Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+});
+
 
 #------------------------------------------------------

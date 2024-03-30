@@ -8,7 +8,11 @@
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title"><br>
             <label for="author">Author:</label><br>
-            <input type="text" id="author" name="author"><br>
+            <select id="author" name="author_id">
+                @foreach($authors as $author)
+                    <option value="{{ $author->id }}">{{ $author->name }}</option>
+                @endforeach
+            </select><br>
             <label for="description">Description:</label><br>
             <textarea id="description" name="description"></textarea><br>
             <button type="submit">Create Book</button>

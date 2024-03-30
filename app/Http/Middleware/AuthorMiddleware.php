@@ -15,6 +15,6 @@ class AuthorMiddleware
             return $next($request);
         }
 
-        return redirect()->route('home')->with('error', 'Access denied.');
+        return redirect()->route('home.index')->with('error', 'Access denied.');
     }
 }

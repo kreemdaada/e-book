@@ -14,24 +14,33 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // Validierung der Registrierungsdaten
+        #----------------------------------------
+        //debugger Ausgabe des Anforderungs-Arrays
+       #dd($request->all());
+       #--------------------------------------
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            
         ]);
 
-        // Erstellen eines neuen Benutzers
         $user = \App\Models\User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'is_author' => $request->is_author,
         ]);
 
-        // Anmelden des Benutzers nach der Registrierung
-        Auth::login($user);
+        if ($request->has('is_author')) {
+            $author = new \App\Models\Author();
+            $author->name = $user->name;
+            $author->user_id = $user->id;
+            $author->save();
+        }
 
-        // Umleitung nach der erfolgreichen Registrierung
+        auth()->login($user);
+
         return redirect('/home');
     }
 
@@ -42,20 +51,15 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validierung der Anmeldedaten
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
-        // Überprüfung der Anmeldeinformationen
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Wenn die Anmeldeinformationen gültig sind, wird der Benutzer angemeldet und umgeleitet
             return redirect()->intended('/home');
         } else {
-            // Wenn die Anmeldeinformationen ungültig sind, wird der Benutzer zurück zum Anmeldeformular geleitet
             return back()->withErrors(['email' => 'Invalid credentials']);
-        
         }
     }
     
