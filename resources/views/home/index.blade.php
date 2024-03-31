@@ -12,31 +12,27 @@
 
 
 <div class="container mt-5">
-    <h1>Welcome to the Homepage</h1>
-    <p>This is a simple homepage with Bootstrap navigation.</p>
-
+    <h1 class="text-danger">E-Book Lesen und Hochladen.</h1>
     @auth
-    <p>Hello, {{ auth()->user()->name }}</p>
+    <h5>willkomen zurück, <h3 class="text-secondary">{{ auth()->user()->name }}</h3></h5>
     @endauth
-
-
     <div class="card mt-3">
         <div class="card-header">
-            Featured Books
+           <h4> Unsere Bücher</h4>
         </div>
         @foreach($books as $book)
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <h5 class="card-title">{{ $book->title }}</h5>
-                <p class="card-text">{{ $book->description }}</p>
-                <p class="card-text">{{ $book->author }}</p>
+                <h5 class="card-title text-success">{{ $book->title }}</h5>
+                <h4 class="card-text">{{ $book->description }}</h4>
+                <h4 class="card-text text-success">{{ $book->author }}</h4>
                 <button class="btn btn-primary mr-2">Like</button>
                 <button class="btn btn-secondary">Comment</button>
             </li>
             <li class="list-group-item">
-                <h5 class="card-title">{{ $book->title }}</h5>
-                <p class="card-text">{{ $book->description }}</p>
-                <p class="card-text">{{ $book->author }}</p>
+                <h5 class="card-title text-success">{{ $book->title }}</h5>
+                <h4 class="card-text">{{ $book->description }}</h4>
+                <h4 class="card-text text-success">{{ $book->author }}</h4>
                 <button class="btn btn-primary mr-2">Like</button>
                 <button class="btn btn-secondary">Comment</button>
             </li>
