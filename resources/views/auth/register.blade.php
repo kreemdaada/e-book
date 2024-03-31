@@ -1,7 +1,15 @@
-<!-- resources/views/auth/register.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registierung</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
 @if ($errors->any())
-    <div>
+    <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
@@ -10,36 +18,39 @@
     </div>
 @endif
 
-
-
-
-
-
 <form method="POST" action="{{ route('register') }}">
     @csrf
 
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-
-    <label for="email">E-Mail Adresse</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-
-    <label for="password">Passwort</label>
-    <input id="password" type="password" name="password" required>
-
-    <label for="password-confirm">Passwort bestätigen</label>
-    <input id="password-confirm" type="password" name="password_confirmation" required>
-
-    <div class="form-group row">
-    <label for="is_author" class="col-md-4 col-form-label text-md-right">Registriere mich als Autor</label>
-
-    <div class="col-md-6">
-        <input id="is_author" type="checkbox" class="form-control" name="is_author" value="1">
+    <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
     </div>
-</div>
 
+    <div class="form-group">
+        <label for="email" class="form-label">E-Mail Adresse</label>
+        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+    </div>
 
-    <button type="submit">
-        Registrieren
-    </button>
+    <div class="form-group">
+        <label for="password" class="form-label">Passwort</label>
+        <input id="password" type="password" class="form-control" name="password" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password-confirm" class="form-label">Passwort bestätigen</label>
+        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+    </div>
+
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="is_author" name="is_author" value="1">
+        <label class="form-check-label" for="is_author">Registriere mich als Autor</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrieren</button>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
