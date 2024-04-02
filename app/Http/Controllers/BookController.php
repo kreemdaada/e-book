@@ -17,6 +17,8 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::with('author')->get(); // Lade auch den Autor für jedes Buch
+        //debugger
+        #dd($books);
         return view('books.index', compact('books'));
     }
 
@@ -31,15 +33,16 @@ class BookController extends Controller
         // Überprüfen, ob der aktuelle Benutzer ein Autor ist
         if (auth()->user()->author) {
             $authorName = $request->input('author');
-            
+    
             // Sicherstellen, dass der Autorname nicht leer ist
             if (!empty($authorName)) {
                 $author = Author::firstOrCreate(['name' => $authorName]); // Erstelle den Autor, falls nicht vorhanden
     
                 $book = new Book();
                 $book->title = $request->input('title');
-                $book->description = $request->input('description');
-                $book->author_id = $author->id; // Setze die author_id entsprechend
+                $book->author = $request->input('author');
+                $book->description = substr($request->input('description'), 0, 255); // Beschreibung auf maximal 255 Zeichen kürzen
+                $book->author_id = $author->id;
     
                 $book->save();
     
@@ -53,7 +56,7 @@ class BookController extends Controller
             return redirect()->back()->withErrors('Nur Autoren dürfen Bücher erstellen.');
         }
     }
-    
+    #-------------------------------------------------------------------------------------------------
     public function edit($id)
     {
         $book = Book::findOrFail($id);

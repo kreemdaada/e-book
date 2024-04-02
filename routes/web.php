@@ -1,11 +1,12 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BookController;
-
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +49,7 @@ Route::group(['middleware' => 'author'], function () {
 
 
 #------------------------------------------------------
+Route::post('/like/{bookId}', [LikeController::class, 'like'])->name('like');
+Route::post('/comment/{bookId}', [CommentController::class, 'addComment'])->name('comment');
+#---------------------------------------------------------------------------
+Route::get('/books/{bookId}/comments', 'BookController@showBookComments');

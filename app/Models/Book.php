@@ -42,4 +42,27 @@ class Book extends Model
         // Rückgabe des gespeicherten Buchobjekts
         return $book;
     }
+
+     /**
+     * Get the likes for the book.
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function like()
+    {
+        // Sie können hier Ihre Route für die Like-Aktion angeben
+        return route('like', ['bookId' => $this->id]);
+    }
+
+
+    /**
+     * Get the comments for the book.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
