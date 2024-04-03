@@ -19,7 +19,7 @@ class UserController extends Controller
         // Anzahl der heruntergeladenen Bücher
         $downloadedBooksCount = $downloadedBooks->count();
 
-        // Übergeben Sie die Benutzerdaten und die heruntergeladenen Bücher an die Profilansicht
+        // Übergeb die Benutzerdaten und die heruntergeladenen Bücher an die Profilansicht
         return view('user.profile', compact('user', 'downloadedBooks', 'downloadedBooksCount'));
     }
 }
