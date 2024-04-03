@@ -9,7 +9,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\DownloadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,3 +62,5 @@ Route::get('/download-pdf', [PDFController::class, 'downloadPDF'])->name('pdf.do
 Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 #---------------------------------------------------------------------------
 Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+#---------------------------------------------------------------------------
+Route::get('/download-pdf', [DownloadController::class, 'downloadPDF'])->name('download.pdf');

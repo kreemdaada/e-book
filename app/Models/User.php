@@ -48,7 +48,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'is_author' => false, //  default value for 'is_author' to false
+        'is_author' => false, // Defaultwert für 'is_author' auf false
     ];
 
     /**

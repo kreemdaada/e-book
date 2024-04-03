@@ -14,21 +14,19 @@
     <h1 class="text-primary">Benutzerprofil</h1>
     <div class="card mt-3">
         <div class="card-header">
-           <h4>Meine heruntergeladenen Bücher</h4>
+            <h4>Meine heruntergeladenen Bücher ({{ $downloadedBooksCount }})</h4>
         </div>
-
-        @if(!empty($downloadedBooks))
+        @if($downloadedBooksCount > 0)
             <ul class="list-group list-group-flush">
-                @foreach($downloadedBooks as $book)
-                    <li class="list-group-item">{{ $book->title }}</li>
+                @foreach($downloadedBooks as $download)
+                    <li class="list-group-item">{{ $download->title }}</li>
                 @endforeach
             </ul>
         @else
-            <h4>Keine heruntergeladenen Bücher gefunden.</h4>
+            <p>Keine heruntergeladenen Bücher gefunden.</p>
         @endif
     </div>
 </div>
-
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
