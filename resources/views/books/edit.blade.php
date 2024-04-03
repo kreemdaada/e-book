@@ -10,7 +10,11 @@
                 <label for="title">Titel</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ $book->title }}">
             </div>
-            <!-- Weitere Formularfelder hier einfügen, je nach Bedarf -->
+            <div class="form-group">
+                <label for="title">Beschreibung</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $book->beschreibung }}">
+            </div>
+           
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
     </div>

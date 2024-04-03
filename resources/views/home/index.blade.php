@@ -13,7 +13,7 @@
 <div class="container mt-5">
     <h1 class="text-danger">E-Book Lesen und Hochladen.</h1>
     @auth
-    <h5>Willkommen zurück, <h3 class="text-secondary">{{ auth()->user()->name }}</h3></h5>
+    <h5>Willkommen zurück, <span class="text-secondary">{{ auth()->user()->name }}</span></h5>
     @endauth
     <div class="card mt-3">
         <div class="card-header">
@@ -25,19 +25,19 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <h5 class="card-title text-success">{{ $book->title }}</h5>
-                            <h4 class="card-text">{{ $book->description }}</h4>
-                            <h4 class="card-text text-success">{{ $book->author }}</h4>
+                            <p class="card-text">{{ $book->description }}</p>
+                            <p class="card-text text-success">{{ $book->author }}</p>
                             <form action="{{ route('like', ['bookId' => $book->id]) }}" method="post">
                                 @csrf
-                                <button type="submit">Like</button>
+                                <button type="submit" class="btn btn-primary">Like</button>
                             </form>
                             <span>{{ $book->likes()->count() }} Likes</span>
                             <form action="{{ route('comment', ['bookId' => $book->id]) }}" method="post">
                                 @csrf
-                                <textarea name="comment" rows="3" cols="50" placeholder="Kommentar hinzufügen"></textarea>
-                                <button type="submit">Kommentieren</button>
+                                <textarea name="comment" rows="3" cols="50" class="form-control mt-3" placeholder="Kommentar hinzufügen"></textarea>
+                                <button type="submit" class="btn btn-success mt-3">Kommentieren</button>
                             </form>
-                            <div>
+                            <div class="mt-3">
                                 <h5>Kommentare:</h5>
                                 @foreach($book->comments as $comment)
                                     <p>{{ $comment->content }}</p>
