@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1>Bücherliste</h1>
+        <h1 class="text-primary">Bücherliste</h1>
         <ul class="list-group">
             @foreach($books as $book)
                 <li class="list-group-item">

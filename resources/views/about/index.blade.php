@@ -14,19 +14,19 @@
 
 <div class="container mt-4">
     <h1 class="mb-4">About</h1>
-    <h4 class="text-info">This is the About page content.</h4>
+    <h4 class="text-primary">This is the About page content.</h4>
     
     <div class="row mt-4">
         <div class="col-md-6">
-            <h2 class="text-info">Unsere Mission</h2>
+            <h2 class="text-primary">Unsere Mission</h2>
             <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
         </div>
         <div class="col-md-6">
-            <h2 class="text-info">Unsere Vision</h2>
+            <h2 class="text-primary">Unsere Vision</h2>
             <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
         </div>
         <div class="col-md-6">
-            <h2 class="text-info">Unsere Bedienungen</h2>
+            <h2 class="text-primary">Unsere Bedienungen</h2>
             <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
         </div>
     </div>

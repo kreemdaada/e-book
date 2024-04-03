@@ -36,6 +36,8 @@
                                 </button>
                             </div>
                         </form>
+                        <div class="form-group">
+                        <button type="button" onclick="window.location='{{ route('register') }}'" class="btn btn-success mt-4">Register</button>
                     </div>
                 </div>
             </div>

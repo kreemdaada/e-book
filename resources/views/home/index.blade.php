@@ -11,7 +11,7 @@
 @include('includes.navbar')
 
 <div class="container mt-5">
-    <h1 class="text-danger">E-Book Lesen und Hochladen.</h1>
+    <h1 class="text-primary">E-Book Lesen und Hochladen.</h1>
     @auth
     <h5>Willkommen zurück, <span class="text-secondary">{{ auth()->user()->name }}</span></h5>
     @endauth
@@ -39,10 +39,13 @@
                                 <button type="submit" class="btn btn-success mt-3">Kommentieren</button>
                             </form>
                             <div class="mt-3">
-                                <h5>Kommentare:</h5>
-                                @foreach($book->comments as $comment)
-                                    <p>{{ $comment->content }}</p>
-                                @endforeach
+                            <h5>Kommentare:</h5>
+                            @foreach($book->comments as $comment)
+                                <div class="mb-3">
+                                    <strong>{{ $comment->user->name }}</strong> <strong>am {{ $comment->created_at->format('d.m.Y H:i') }}:</strong><br>
+                                   <h6> {{ $comment->content }}</h6>
+                                </div>
+                            @endforeach
                             </div>
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('pdf.download') }}">
