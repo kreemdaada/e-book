@@ -15,6 +15,19 @@
     @auth<br/>
     <h5>Willkommen zurück, <span class="text-secondary">{{ auth()->user()->name }}</span></h5><br/>
     @endauth
+
+    <div class="row justify-content-end mb-3">
+        <form action="{{ route('books.search') }}" method="GET" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Suche nach Büchern" aria-label="Search" name="query">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Suchen</button>
+        </form>
+    </div>
+
+
+    <form action="{{ route('user.profile') }}" method="GET">
+    <button type="submit" class="btn btn-primary">Mein Profil</button>
+    </form>
+    
     <div class="card mt-3">
         <div class="card-header">
            <h4> Unsere Bücher</h4>

@@ -40,6 +40,9 @@
         <label for="password-confirm" class="form-label">Passwort bestätigen</label>
         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
     </div>
+<!-- Verstecktes Feld für is_author -->
+    <input type="hidden" name="is_author" value="0">
+<!-- Verstecktes Feld für is_author -->
 
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="is_author" name="is_author" value="1">

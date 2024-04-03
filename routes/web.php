@@ -8,6 +8,8 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +58,7 @@ Route::post('/comment/{bookId}', [CommentController::class, 'addComment'])->name
 Route::get('/books/{bookId}/comments', 'BookController@showBookComments');
 #---------------------------------------------------------------------------
 Route::get('/download-pdf', [PDFController::class, 'downloadPDF'])->name('pdf.download');
+#---------------------------------------------------------------------------
+Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
+#---------------------------------------------------------------------------
+Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');

@@ -41,9 +41,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function author()
-{
-    return $this->hasOne(Author::class);
-}
 
+    /**
+     * The attributes that should have default values.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_author' => false, //  default value for 'is_author' to false
+    ];
+
+    /**
+     * Define the relationship between a user and their books.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+
+    /**
+     * Define the relationship between a user and their downloaded books.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function downloadedBooks()
+    {
+        return $this->hasMany(Download::class);
+    }
 }

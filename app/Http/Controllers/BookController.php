@@ -77,4 +77,21 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('books.index');
     }
+
+    public function search(Request $request)
+{
+    // Extract the search query from the request
+    $query = $request->input('query');
+
+    // Search for books where the title, description, or author column contains the search query
+    //  % signs in SQL, allowing the query to match any characters before or after the search query
+    // This allows for partial matches, for example, if the search query is 'book', it will match 'book', 'books', 'ebook', etc.
+    $books = Book::where('title', 'like', "%$query%")
+                 ->orWhere('description', 'like', "%$query%")
+                 ->orWhere('author', 'like', "%$query%")
+                 ->get();
+
+    return view('books.index', compact('books'));
+}
+
 }
