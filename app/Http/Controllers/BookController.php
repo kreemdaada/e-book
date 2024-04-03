@@ -11,96 +11,95 @@ class BookController extends Controller
 {
     public function __construct()
     {
+        // Führe das AuthorMiddleware für alle Methoden außer 'index' und 'show' aus
         $this->middleware(AuthorMiddleware::class)->except('index', 'show');
     }
 
     public function index()
     {
-        $books = Book::with('author')->get(); // Lade auch den Autor für jedes Buch
-        //debugger
-        #dd($books);
+        // Lade alle Bücher und deren Autoren
+        $books = Book::with('author')->get();
         return view('books.index', compact('books'));
     }
 
     public function create()
     {
-        $author = Author::all(); 
-        return view('books.create', compact('author')); 
+        // Lade alle Autoren für das Formular zum Erstellen eines Buches
+        $authors = Author::all(); 
+        return view('books.create', compact('authors')); 
     }
 
     public function store(Request $request)
     {
-        // Überprüfen, ob der aktuelle Benutzer ein Autor ist
+        // Überprüfe, ob der aktuelle Benutzer ein Autor ist
         if (auth()->user()->author) {
             $authorName = $request->input('author');
     
-            // Sicherstellen, dass der Autorname nicht leer ist
+            // Stelle sicher, dass der Autorname nicht leer ist
             if (!empty($authorName)) {
-                $author = Author::firstOrCreate(['name' => $authorName]); // Erstelle den Autor, falls nicht vorhanden
+                // Erstelle den Autor, falls er nicht vorhanden ist
+                $author = Author::firstOrCreate(['name' => $authorName]); 
     
+                // Erstelle das Buch
                 $book = new Book();
                 $book->title = $request->input('title');
                 $book->author = $request->input('author');
                 $book->description = substr($request->input('description'), 0, 255); // Beschreibung auf maximal 255 Zeichen kürzen
                 $book->author_id = $author->id;
-    
                 $book->save();
     
                 return redirect()->route('books.index');
             } else {
-                // Wenn der Autorname fehlt, zeige eine Fehlermeldung an oder leite ihn an eine andere Seite weiter
+                // Zeige eine Fehlermeldung an, wenn der Autorname fehlt
                 return redirect()->back()->withErrors('Autorname fehlt.');
             }
         } else {
-            // Wenn der Benutzer kein Autor ist, zeige eine Fehlermeldung an oder leite ihn an eine andere Seite weiter
+            // Zeige eine Fehlermeldung an, wenn der Benutzer kein Autor ist
             return redirect()->back()->withErrors('Nur Autoren dürfen Bücher erstellen.');
         }
     }
-    #-------------------------------------------------------------------------------------------------
+
     public function edit($id)
     {
+        // Finde das Buch anhand der ID
         $book = Book::findOrFail($id);
 
-        // Überprüf, ob der angemeldete Benutzer der Autor des Buches ist
+        // Überprüfe, ob der angemeldete Benutzer der Autor des Buches ist
         if ($book->author_id != auth()->user()->id) {
             abort(403, 'Sie haben keine Berechtigung, dieses Buch zu bearbeiten.');
         }
-        return view('books.edit', compact('book'));
-    }
 
-    public function update(Request $request, $id)
-    {
-        $data = $request->except(['_token']);
-        $book = Book::findOrFail($id);
-        $book->update($data);
-        return redirect()->route('books.index');
+        return view('books.edit', compact('book'));
     }
 
     public function destroy($id)
     {
+        // Finde das Buch anhand der ID
         $book = Book::findOrFail($id);
-        $book->delete();
-        //Überprüf, ob der angemeldete Benutzer der Autor des Buches ist
-        if ($book->author_id != auth()->user()->id) {
-            abort(403, 'Sie haben keine Berechtigung, dieses Buch zu bearbeiten.');
+
+        // Überprüfe, ob der angemeldete Benutzer der Autor des Buches ist
+        if (!auth()->user()->author) {
+            abort(403, 'Sie haben keine Berechtigung, dieses Buch zu löschen.');
         }
-        return redirect()->route('books.index');
+
+        // Lösche das Buch
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Buch erfolgreich gelöscht.');
     }
 
     public function search(Request $request)
-{
-    // Extract the search query from the request
-    $query = $request->input('query');
+    {
+        // Extrahiere die Suchanfrage aus der Anfrage
+        $query = $request->input('query');
 
-    // Search for books where the title, description, or author column contains the search query
-    //  % signs in SQL, allowing the query to match any characters before or after the search query
-    // This allows for partial matches, for example, if the search query is 'book', it will match 'book', 'books', 'ebook', etc.
-    $books = Book::where('title', 'like', "%$query%")
-                 ->orWhere('description', 'like', "%$query%")
-                 ->orWhere('author', 'like', "%$query%")
-                 ->get();
+        // Suche nach Büchern, deren Titel, Beschreibung oder Autor die Suchanfrage enthalten
+        $books = Book::where('title', 'like', "%$query%")
+                     ->orWhere('description', 'like', "%$query%")
+                     ->orWhere('author', 'like', "%$query%")
+                     ->get();
 
-    return view('books.index', compact('books'));
+        return view('books.index', compact('books'));
+    }
 }
 
-}
