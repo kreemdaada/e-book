@@ -11,9 +11,9 @@
 @include('includes.navbar')
 
 <div class="container mt-5">
-    <h1 class="text-primary">E-Book Lesen und Hochladen.</h1>
-    @auth
-    <h5>Willkommen zurück, <span class="text-secondary">{{ auth()->user()->name }}</span></h5>
+    <h1 class="text-primary">E-Book Lesen und Hochladen/Als PDF Speichern.</h1><br/>
+    @auth<br/>
+    <h5>Willkommen zurück, <span class="text-secondary">{{ auth()->user()->name }}</span></h5><br/>
     @endauth
     <div class="card mt-3">
         <div class="card-header">
@@ -25,9 +25,9 @@
                 @foreach($books as $book)
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <h5 class="card-title text-success">{{ $book->title }}</h5>
-                            <p class="card-text">{{ $book->description }}</p>
-                            <p class="card-text text-success">{{ $book->author }}</p>
+                            <h2 class="card-title text-success">{{ $book->title }}</h2>
+                            <h5 class="card-text">{{ $book->description }}</h5>
+                            <h6 class="card-text text-success">{{ $book->author }}</h6>
                             <form action="{{ route('like', ['bookId' => $book->id]) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Like</button>
@@ -46,14 +46,14 @@
                                    <h6> {{ $comment->content }}</h6>
                                 </div>
                             @endforeach
-                            </div>
+                            </div><br/>
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('pdf.download') }}">
                                 <button type="button" class="btn btn-primary">PDF speichern</button>
                             </a>
                         </li>
                         </li>
-                    </ul>
+                    </ul><br/>
                 @endforeach
             @else
                 <p>Es sind keine Bücher verfügbar.</p>
