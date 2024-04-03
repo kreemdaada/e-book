@@ -19,6 +19,7 @@
         <div class="card-header">
            <h4> Unsere Bücher</h4>
         </div>
+        
         @isset($books)
             @if($books->count() > 0)
                 @foreach($books as $book)
@@ -43,6 +44,11 @@
                                     <p>{{ $comment->content }}</p>
                                 @endforeach
                             </div>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pdf.download') }}">
+                                <button type="button" class="btn btn-primary">PDF speichern</button>
+                            </a>
+                        </li>
                         </li>
                     </ul>
                 @endforeach
