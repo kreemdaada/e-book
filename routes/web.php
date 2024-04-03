@@ -63,4 +63,4 @@ Route::get('/books/search', [BookController::class, 'search'])->name('books.sear
 #---------------------------------------------------------------------------
 Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
 #---------------------------------------------------------------------------
-Route::get('/download-pdf', [DownloadController::class, 'downloadPDF'])->name('download.pdf');
+Route::get('/books/{bookId}/download-pdf', [DownloadController::class, 'downloadPDF'])->name('download.book.pdf');
