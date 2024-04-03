@@ -17,10 +17,10 @@
     @endauth
 
     <div class="row justify-content-end mb-3">
-        <form action="{{ route('books.search') }}" method="GET" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Suche nach Büchern" aria-label="Search" name="query">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Suchen</button>
-        </form>
+    <form action="{{ route('books.search') }}" method="GET" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Suche nach Büchern" aria-label="Search" name="query">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Suchen</button>
+    </form>
     </div>
 
 

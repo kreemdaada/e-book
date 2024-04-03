@@ -11,8 +11,8 @@ class BookController extends Controller
 {
     public function __construct()
     {
-        // Führe das AuthorMiddleware für alle Methoden außer 'index' und 'show' aus
-        $this->middleware(AuthorMiddleware::class)->except('index', 'show');
+        // Führe das AuthorMiddleware für alle Methoden außer 'index', 'show', 'search' und 'store' aus
+        $this->middleware(AuthorMiddleware::class)->except(['index', 'show', 'search', 'store']);
     }
 
     public function index()
@@ -78,7 +78,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
 
         // Überprüfe, ob der angemeldete Benutzer der Autor des Buches ist
-        if (!auth()->user()->author) {
+        if ($book->author_id != auth()->user()->id) {
             abort(403, 'Sie haben keine Berechtigung, dieses Buch zu löschen.');
         }
 
@@ -90,16 +90,19 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-        // Extrahiere die Suchanfrage aus der Anfrage
+        // Debugging-Ausgabe der Suchanfrage
         $query = $request->input('query');
+        ##dd($query);
 
-        // Suche nach Büchern, deren Titel, Beschreibung oder Autor die Suchanfrage enthalten
+        // Suche nach Büchern, bei denen der Titel, die Beschreibung oder der Autor die Suchanfrage enthält
+        // Verwende % in SQL, um Platzhalterzeichen anzugeben, damit die Abfrage Teile vor oder nach der Suchanfrage übereinstimmen kann
+        // Dies ermöglicht Teilübereinstimmungen, z.B. wenn die Suchanfrage 'book' ist, wird sie 'book', 'books', 'ebook' usw. finden.
         $books = Book::where('title', 'like', "%$query%")
                      ->orWhere('description', 'like', "%$query%")
                      ->orWhere('author', 'like', "%$query%")
                      ->get();
-
-        return view('books.index', compact('books'));
+    
+        // Gib die Suchergebnisse an die Ansicht zurück
+        return view('books.search', compact('books'));
     }
 }
-

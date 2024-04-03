@@ -46,10 +46,12 @@ Route::group(['middleware' => 'author'], function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
     Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
-    Route::put('/books/{id}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+    #Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
+
 });
 
+Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 
 #------------------------------------------------------
 Route::post('/like/{bookId}', [LikeController::class, 'like'])->name('like');
@@ -59,7 +61,6 @@ Route::get('/books/{bookId}/comments', 'BookController@showBookComments');
 #---------------------------------------------------------------------------
 Route::get('/download-pdf', [PDFController::class, 'downloadPDF'])->name('pdf.download');
 #---------------------------------------------------------------------------
-Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 #---------------------------------------------------------------------------
 Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
 #---------------------------------------------------------------------------
