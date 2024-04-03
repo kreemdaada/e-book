@@ -60,6 +60,11 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::findOrFail($id);
+
+        // Überprüf, ob der angemeldete Benutzer der Autor des Buches ist
+        if ($book->author_id != auth()->user()->id) {
+            abort(403, 'Sie haben keine Berechtigung, dieses Buch zu bearbeiten.');
+        }
         return view('books.edit', compact('book'));
     }
 
@@ -75,6 +80,10 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
         $book->delete();
+        //Überprüf, ob der angemeldete Benutzer der Autor des Buches ist
+        if ($book->author_id != auth()->user()->id) {
+            abort(403, 'Sie haben keine Berechtigung, dieses Buch zu bearbeiten.');
+        }
         return redirect()->route('books.index');
     }
 

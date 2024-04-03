@@ -10,7 +10,12 @@
                     <p><strong>Autor:</strong> {{ $book->author }}</p>
                     <p><strong>Beschreibung:</strong> {{ $book->description }}</p>
                     <div class="btn-group" role="group" aria-label="Buch-Optionen">
-                        <a href="{{ route('books.edit', $book->id) }}" class="btn btn-primary">Bearbeiten</a>
+                        @if ($book->author_id == auth()->user()->id)
+                            <a href="{{ route('books.edit', $book->id) }}" class="btn btn-primary">Bearbeiten</a>
+                        @else
+                            <button type="button" class="btn btn-primary disabled" disabled>Bearbeiten</button>
+                            <p class="text-danger">Sie haben keine Berechtigung, dieses Buch zu bearbeiten.</p>
+                        @endif
                         <form action="{{ route('books.destroy', $book->id) }}" method="POST">
                             @csrf
                             @method('DELETE')

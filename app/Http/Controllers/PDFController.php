@@ -7,35 +7,36 @@ use App\Models\Book;
 use PDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\Auth;
 
 class PDFController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); // Stellen Sie sicher, dass nur authentifizierte Benutzer auf diese Methode zugreifen können
+    }
+
     public function downloadPDF()
     {
-        // Alle Bücher abrufen
+        // Holen Sie sich den angemeldeten Benutzer
+        $user = Auth::user();
+
         $books = Book::all(); 
 
-        // PDF-Optionen einrichten
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
 
-        // Dompdf-Instanz erstellen
         $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('pdf.books', compact('books'))->render());
 
-        // HTML aus der Blade-Vorlage laden
-        $html = view('pdf.books', compact('books'))->render();
-
-        // HTML zum Dompdf hinzufügen
-        $dompdf->loadHtml($html);
-
-        // Papiergröße und Ausrichtung festlegen
+        // (Optional) Setzen Sie das Papierformat und die Ausrichtung
         $dompdf->setPaper('A4', 'portrait');
 
-        // HTML als PDF rendern
+        // Rendern Sie das HTML als PDF
         $dompdf->render();
 
-        // Generiertes PDF zum Browser senden und herunterladen
+        // Geben Sie das generierte PDF an den Browser aus
         return $dompdf->stream('books.pdf');
     }
 }
