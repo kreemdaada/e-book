@@ -13,17 +13,21 @@
 @include('includes.navbar')
 
 <div class="container mt-4">
-    <h1 class="mb-4">About Page</h1>
+    <h1 class="mb-4">About</h1>
     <h4 class="text-info">This is the About page content.</h4>
     
     <div class="row mt-4">
         <div class="col-md-6">
-            <h2 class="text-info">Our Mission</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</p>
+            <h2 class="text-info">Unsere Mission</h2>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
         </div>
         <div class="col-md-6">
-            <h2 class="text-info">Our Vision</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</p>
+            <h2 class="text-info">Unsere Vision</h2>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-info">Unsere Bedienungen</h2>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis augue sed nunc efficitur vehicula. Proin ultricies ipsum nec efficitur aliquam.</h4>
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@ class Book extends Model
         '_token', //  das _token Feld hinzu
     ];
 
-    // Definieren der Beziehung zu einem Autor
+    // Definier der Beziehung zu einem Autor
     public function author()
     {
         return $this->belongsTo(Author::class);
@@ -27,16 +27,16 @@ class Book extends Model
     // Methode zum Speichern eines neuen Buches
     public static function createBook($title, $description, $authorName)
     {
-        // Suchen nach einem vorhandenen Autor oder Erstellen eines neuen
+        // Suche nach einem vorhandenen Autor oder Erstellen eines neuen
         $author = Author::firstOrCreate(['name' => $authorName]);
 
-        // Erstellen eines neuen Buchobjekts
+        // Erstelle eines neuen Buchobjekts
         $book = new self();
         $book->title = $title;
         $book->description = $description;
-        $book->author_id = $author->id; // Setzen der author_id auf die ID des Autors
+        $book->author_id = $author->id; // Setze der author_id auf die ID des Autors
 
-        // Speichern des Buchobjekts in der Datenbank
+        // Speicher des Buchobjekts in der Datenbank
         $book->save();
 
         // Rückgabe des gespeicherten Buchobjekts
@@ -53,7 +53,7 @@ class Book extends Model
 
     public function like()
     {
-        // Sie können hier Ihre Route für die Like-Aktion angeben
+        // hier Route für die Like-Aktion angeben
         return route('like', ['bookId' => $this->id]);
     }
 
