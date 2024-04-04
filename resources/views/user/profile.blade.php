@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +14,16 @@
     <h1 class="text-primary">Benutzerprofil</h1>
     <div class="card mt-3">
         <div class="card-header">
+        <div class="card mt-3">
+        <div class="card-header">
+            <h4>Profilbild</h4>
+        </div>
+        <div class="card-body">
+            <img src="{{ asset('images/bild1.jpg') }}" alt="Profilbild" class="img-fluid rounded-circle" style="max-width: 200px;">
+        </div>
+    </div>
             <h4>Willkommen, {{ auth()->user()->name }}</h4>
-            <p>Datum: {{ now()->format('Y-m-d') }}</p>
+            <p>Datum: {{ now()->isoFormat('LL') }}</p> <!-- Datum auf Deutsch -->
         </div>
         <div class="card-body">
             <h5 class="card-title">Kommentare:</h5>
@@ -44,6 +52,7 @@
             <p>Keine heruntergeladenen Bücher gefunden.</p>
         @endif
     </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
