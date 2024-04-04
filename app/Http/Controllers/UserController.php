@@ -1,25 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Book;
-
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Download;
 class UserController extends Controller
 {
     public function profile()
     {
-        // Benutzer abrufen
-        $user = auth()->user();
-
-        // Alle heruntergeladenen Bücher des Benutzers abrufen
-        $downloadedBooks = Book::where('downloaded', 1)->where('author_id', $user->id)->get();
-
-        // Anzahl der heruntergeladenen Bücher
+        $user = Auth::user();
+        $comments = Comment::where('user_id', $user->id)->get();
+        $downloadedBooks = $user->downloadedBooks;
         $downloadedBooksCount = $downloadedBooks->count();
 
-        // Übergeb die Benutzerdaten und die heruntergeladenen Bücher an die Profilansicht
-        return view('user.profile', compact('user', 'downloadedBooks', 'downloadedBooksCount'));
+        return View('user.profile', [
+            'user' => $user,
+            'comments' => $comments,
+            'downloadedBooks' => $downloadedBooks,
+            'downloadedBooksCount' => $downloadedBooksCount,
+        ]);
     }
 }

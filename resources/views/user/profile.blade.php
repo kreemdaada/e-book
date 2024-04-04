@@ -14,6 +14,24 @@
     <h1 class="text-primary">Benutzerprofil</h1>
     <div class="card mt-3">
         <div class="card-header">
+            <h4>Willkommen, {{ auth()->user()->name }}</h4>
+            <p>Datum: {{ now()->format('Y-m-d') }}</p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Kommentare:</h5>
+            @if($comments->count() > 0)
+                <ul class="list-group list-group-flush">
+                    @foreach($comments as $comment)
+                        <li class="list-group-item">{{ $comment->comment_text }}</li>
+                    @endforeach
+                </ul>
+            @else
+                <p>Keine Kommentare gefunden.</p>
+            @endif
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
             <h4>Meine heruntergeladenen Bücher ({{ $downloadedBooksCount }})</h4>
         </div>
         @if($downloadedBooksCount > 0)
@@ -27,7 +45,6 @@
         @endif
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
