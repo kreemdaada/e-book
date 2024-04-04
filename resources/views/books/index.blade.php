@@ -20,7 +20,7 @@
                 </li>
             @endforeach
             <li class="list-group-item">
-                <a href="{{ route('books.create') }}" class="btn btn-success">Neues Buch erstellen</a>
+                <a href="{{ route('books.index') }}" class="btn btn-success">Neues Buch erstellen</a>
             </li>
         </ul>
     </div>

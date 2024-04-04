@@ -6,7 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Http\Middleware\AuthorMiddleware;
-
+use Illuminate\Support\Facades\Log;
 class BookController extends Controller
 {
     public function __construct()
@@ -32,32 +32,40 @@ class BookController extends Controller
     public function store(Request $request)
     {
         // Überprüfe, ob der aktuelle Benutzer ein Autor ist
-        if (auth()->user()->author) {
+        if (auth()->user()->is_author) {
+            // Loggen aller Formulardaten
+            Log::info($request->all());
+            
+            // Autorname aus dem Request holen
             $authorName = $request->input('author');
-    
-            // Stelle sicher, dass der Autorname nicht leer ist
+            
+            // Überprüfen, ob der Autorname nicht leer ist
             if (!empty($authorName)) {
-                // Erstelle den Autor, falls er nicht vorhanden ist
+                // Erstellen oder Abrufen des Autors aus der Datenbank
                 $author = Author::firstOrCreate(['name' => $authorName]); 
-    
-                // Erstelle das Buch
+        
+                // Ein neues Buch erstellen und speichern
                 $book = new Book();
                 $book->title = $request->input('title');
-                $book->author = $request->input('author');
                 $book->description = substr($request->input('description'), 0, 255); // Beschreibung auf maximal 255 Zeichen kürzen
                 $book->author_id = $author->id;
                 $book->save();
-    
-                return redirect()->route('books.index');
+        
+                return redirect()->route('books.index')->with('success', 'Buch erfolgreich erstellt.');
             } else {
-                // Zeige eine Fehlermeldung an, wenn der Autorname fehlt
+                // Fehlermeldung anzeigen, wenn der Autorname fehlt
                 return redirect()->back()->withErrors('Autorname fehlt.');
             }
         } else {
-            // Zeige eine Fehlermeldung an, wenn der Benutzer kein Autor ist
+            // Fehlermeldung anzeigen, wenn der Benutzer kein Autor ist
             return redirect()->back()->withErrors('Nur Autoren dürfen Bücher erstellen.');
         }
     }
+    
+
+    #----------------------------------------------------------------
+    
+
 
     public function edit($id)
     {

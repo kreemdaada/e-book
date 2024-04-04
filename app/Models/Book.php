@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +13,9 @@ class Book extends Model
         'title',
         'description',
         'author_id', // Spalte für die Beziehung zum Autor
-        '_token', //  das _token Feld hinzu
+        '_token', // Das _token Feld hinzu (falls erforderlich)
+        'author', // Zusätzliche Spalte für den Autor (falls erforderlich)
+        'downloaded', // Zusätzliche Spalte für Downloads (falls erforderlich)
     ];
 
     // Definier der Beziehung zu einem Autor
@@ -35,7 +35,7 @@ class Book extends Model
         $book->title = $title;
         $book->description = $description;
         $book->author_id = $author->id; // Setze der author_id auf die ID des Autors
-
+        $book->author= $author;
         // Speicher des Buchobjekts in der Datenbank
         $book->save();
 
